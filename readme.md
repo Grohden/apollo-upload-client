@@ -2,13 +2,9 @@
 
 # FORK
 
-This is a fork of the original `apollo-upload-client`, which has been causing
-headaches due to not having common supported build distributions. If you can,
-use the original one, but if you're having trouble with react native, jest, or
-any other build tool (and their non-helpful error messages), try this fork.
+This is a fork of the original `apollo-upload-client`, which has been causing headaches due to not having common supported build distributions. If you can, use the original one, but if you're having trouble with react native, jest, or any other build tool (and their non-helpful error messages), try this fork.
 
-This fork adds esbuild, an index file and typings. Everything else
-is essentially the same so all credits to the original author(s).
+This fork adds esbuild, an index file and typings. Everything else is essentially the same so all credits to the original author(s).
 
 If you have any issues adopting it, please open an issue and I'll try to help.
 
@@ -30,6 +26,7 @@ npm install @grohden/apollo-upload-client
 ```
 
 Or with [yarn](https://yarnpkg.com):
+
 ```sh
 yarn add @grohden/apollo-upload-client
 ```
@@ -175,7 +172,7 @@ Consider polyfilling:
 ## Exports
 
 Import it like your normally would:
-```js
-import { createUploadLink } from '@grohden/apollo-upload-client';
 
+```js
+import { createUploadLink } from "@grohden/apollo-upload-client";
 ```
