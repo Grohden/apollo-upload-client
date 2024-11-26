@@ -1,5 +1,17 @@
 ![Apollo upload logo](https://cdn.jsdelivr.net/gh/jaydenseric/apollo-upload-client@1.0.0/apollo-upload-logo.svg)
 
+# FORK
+
+This is a fork of the original `apollo-upload-client`, which has been causing
+headaches due to not having common supported build distributions. If you can,
+use the original one, but if you're having trouble with react native, jest, or
+any other build tool (and their non-helpful error messages), try this fork.
+
+This fork adds esbuild, an index file and typings. Everything else
+is essentially the same so all credits to the original author(s).
+
+If you have any issues adopting it, please open an issue and I'll try to help.
+
 # apollo-upload-client
 
 A [terminating Apollo Link](https://www.apollographql.com/docs/react/api/link/introduction/#the-terminating-link) for [Apollo Client](https://www.apollographql.com/docs/react) that fetches a [GraphQL multipart request](https://github.com/jaydenseric/graphql-multipart-request-spec) if the GraphQL variables contain files (by default [`FileList`](https://developer.mozilla.org/en-US/docs/Web/API/FileList), [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File), or [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) instances), or else fetches a regular [GraphQL POST or GET request](https://www.apollographql.com/docs/apollo-server/workflow/requests) (depending on the config and GraphQL operation).
@@ -14,7 +26,12 @@ A [terminating Apollo Link](https://www.apollographql.com/docs/react/api/link/in
 To install with [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm), run:
 
 ```sh
-npm install apollo-upload-client
+npm install @grohden/apollo-upload-client
+```
+
+Or with [yarn](https://yarnpkg.com):
+```sh
+yarn add @grohden/apollo-upload-client
 ```
 
 Polyfill any required globals (see [_**Requirements**_](#requirements)) that are missing in your server and client environments.
@@ -23,7 +40,7 @@ Remove any `uri`, `credentials`, or `headers` options from the [`ApolloClient` c
 
 [Apollo Client](https://www.apollographql.com/docs/react) can only have 1 [terminating Apollo Link](https://www.apollographql.com/docs/react/api/link/introduction/#the-terminating-link) that sends the GraphQL requests; if one such as [`HttpLink`](https://www.apollographql.com/docs/react/api/link/apollo-link-http) is already setup, remove it.
 
-Initialize the client with a [terminating Apollo Link](https://www.apollographql.com/docs/react/api/link/introduction/#the-terminating-link) using the function [`createUploadLink`](./createUploadLink.mjs).
+Initialize the client with a [terminating Apollo Link](https://www.apollographql.com/docs/react/api/link/introduction/#the-terminating-link) using the function [`createUploadLink`](src/createUploadLink.mjs).
 
 Also ensure the GraphQL server implements the [GraphQL multipart request spec](https://github.com/jaydenseric/graphql-multipart-request-spec) and that uploads are handled correctly in resolvers.
 
@@ -155,16 +172,10 @@ Consider polyfilling:
 - [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData)
 
-Projects must configure [TypeScript](https://www.typescriptlang.org) to use types from the ECMAScript modules that have a `// @ts-check` comment:
-
-- [`compilerOptions.allowJs`](https://www.typescriptlang.org/tsconfig#allowJs) should be `true`.
-- [`compilerOptions.maxNodeModuleJsDepth`](https://www.typescriptlang.org/tsconfig#maxNodeModuleJsDepth) should be reasonably large, e.g. `10`.
-- [`compilerOptions.module`](https://www.typescriptlang.org/tsconfig#module) should be `"node16"` or `"nodenext"`.
-
 ## Exports
 
-The [npm](https://npmjs.com) package [`apollo-upload-client`](https://npm.im/apollo-upload-client) features [optimal JavaScript module design](https://jaydenseric.com/blog/optimal-javascript-module-design). It doesn’t have a main index module, so use deep imports from the ECMAScript modules that are exported via the [`package.json`](./package.json) field [`exports`](https://nodejs.org/api/packages.html#exports):
+Import it like your normally would:
+```js
+import { createUploadLink } from '@grohden/apollo-upload-client';
 
-- [`createUploadLink.mjs`](./createUploadLink.mjs)
-- [`formDataAppendFile.mjs`](./formDataAppendFile.mjs)
-- [`isExtractableFile.mjs`](./isExtractableFile.mjs)
+```
